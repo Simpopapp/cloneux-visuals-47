@@ -1,18 +1,25 @@
 import { Button } from "./ui/button";
-import { Clock } from "lucide-react";
+import { Clock, Crown } from "lucide-react";
 
 interface ServiceCardProps {
   title: string;
   description: string;
   price: number;
   duration: string;
+  isPremium?: boolean;
 }
 
-export const ServiceCard = ({ title, description, price, duration }: ServiceCardProps) => {
+export const ServiceCard = ({ title, description, price, duration, isPremium }: ServiceCardProps) => {
   return (
-    <div className="bg-card hover:bg-card-hover p-6 rounded-lg border border-gold/20 hover:border-gold/40 transition-all duration-300">
+    <div className={`${
+      isPremium 
+        ? "bg-gradient-to-b from-card to-card/95 border-gold shadow-lg shadow-gold/20" 
+        : "bg-card hover:bg-card-hover border-gold/20 hover:border-gold/40"
+    } p-6 rounded-lg border transition-all duration-300 ${
+      isPremium ? "lg:scale-110" : ""
+    }`}>
       <div className="flex justify-between items-start mb-2">
-        <h3 className="text-lg font-semibold text-white">{title}</h3>
+        <h3 className={`text-lg font-semibold ${isPremium ? "text-gold" : "text-white"}`}>{title}</h3>
         <span className="text-gold">R$ {price.toFixed(2)}</span>
       </div>
       <p className="text-sm text-gray-400 mb-4">{description}</p>
@@ -20,8 +27,21 @@ export const ServiceCard = ({ title, description, price, duration }: ServiceCard
         <Clock className="w-4 h-4 mr-2" />
         {duration}
       </div>
-      <Button className="w-full bg-gold hover:bg-gold-light text-black font-semibold transition-colors">
-        Agendar
+      <Button 
+        className={`w-full ${
+          isPremium 
+            ? "bg-gradient-to-r from-gold to-gold-light hover:from-gold-light hover:to-gold text-black font-bold group relative overflow-hidden" 
+            : "bg-gold hover:bg-gold-light text-black font-semibold"
+        } transition-all duration-300`}
+      >
+        {isPremium ? (
+          <>
+            <Crown className="w-4 h-4 mr-2" />
+            Torne-se Premium
+          </>
+        ) : (
+          "Agendar"
+        )}
       </Button>
     </div>
   );

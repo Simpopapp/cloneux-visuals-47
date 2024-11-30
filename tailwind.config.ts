@@ -40,6 +40,9 @@ export default {
       },
       backgroundImage: {
         'hero': "linear-gradient(rgba(26, 31, 44, 0.7), rgba(26, 31, 44, 0.8)), url('/lovable-uploads/409f5d31-4ba2-4a37-b937-f2b8da36dbaf.png')"
+      },
+      fontFamily: {
+        'serif': ['Playfair Display', 'serif'],
       }
     },
   },

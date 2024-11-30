@@ -83,10 +83,11 @@ const SPECIAL_TREATMENTS = [
 
 const PLANS = [
   {
-    title: "Plano Mensal",
-    description: "Acesso a todos os serviços",
+    title: "Sr. Oliveira PREMIUM",
+    description: "Acesso exclusivo e ilimitado a todos os serviços premium",
     price: 249,
-    duration: "30 dias"
+    duration: "30 dias",
+    isPremium: true
   }
 ];
 
@@ -133,11 +134,11 @@ export const ServicesSection = () => {
         </div>
 
         <div>
-          <h3 className="text-xl font-semibold mb-8 flex items-center">
-            <span className="text-gold mr-2">📅</span>
-            Planos
+          <h3 className="text-xl font-semibold mb-8 flex items-center justify-center">
+            <span className="text-gold mr-2">👑</span>
+            Plano Exclusivo
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 place-items-center">
             {PLANS.map((service) => (
               <ServiceCard key={service.title} {...service} />
             ))}
