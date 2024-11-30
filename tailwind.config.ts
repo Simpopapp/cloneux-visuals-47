@@ -31,7 +31,7 @@ export default {
         },
         card: {
           DEFAULT: "rgba(32, 37, 49, 0.8)",
-          hover: "rgba(32, 37, 49, 0.9)"
+          hover: "rgba(32, 37, 49, 0.95)"
         },
         muted: {
           DEFAULT: "#374151",
@@ -39,7 +39,7 @@ export default {
         }
       },
       backgroundImage: {
-        'hero': "linear-gradient(rgba(26, 31, 44, 0.7), rgba(26, 31, 44, 0.8)), url('/lovable-uploads/64a9caa5-e63d-4a91-8894-e03b2b702654.png')"
+        'hero': "linear-gradient(rgba(26, 31, 44, 0.7), rgba(26, 31, 44, 0.8)), url('/lovable-uploads/409f5d31-4ba2-4a37-b937-f2b8da36dbaf.png')"
       }
     },
   },
