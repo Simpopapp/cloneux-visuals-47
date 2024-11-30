@@ -25,9 +25,9 @@ export default {
         background: "#1a1f2c",
         foreground: "#ffffff",
         gold: {
-          DEFAULT: "#c4a052",
-          light: "#d4b062",
-          dark: "#b49042"
+          DEFAULT: "#d4af37",
+          light: "#e4bf47",
+          dark: "#c49f27"
         },
         card: {
           DEFAULT: "rgba(32, 37, 49, 0.8)",
