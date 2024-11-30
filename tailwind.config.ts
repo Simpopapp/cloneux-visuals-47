@@ -39,7 +39,7 @@ export default {
         }
       },
       backgroundImage: {
-        'hero': "linear-gradient(rgba(26, 31, 44, 0.7), rgba(26, 31, 44, 0.8)), url('/lovable-uploads/409f5d31-4ba2-4a37-b937-f2b8da36dbaf.png')"
+        'hero': "linear-gradient(rgba(26, 31, 44, 0.7), rgba(26, 31, 44, 0.8)), url('/lovable-uploads/54640f51-cf29-4750-9008-f481803b60ed.png')"
       },
       fontFamily: {
         'serif': ['Playfair Display', 'serif'],
