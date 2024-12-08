@@ -155,10 +155,10 @@ export const BookingDialog = () => {
                             <SelectValue placeholder="Selecione o serviço" />
                           </SelectTrigger>
                         </FormControl>
-                        <SelectContent>
-                          <SelectItem value="corte">Corte - R$ 60</SelectItem>
-                          <SelectItem value="barba">Barba - R$ 50</SelectItem>
-                          <SelectItem value="combo">Corte + Barba - R$ 90</SelectItem>
+                        <SelectContent className="bg-background/95 backdrop-blur-sm border border-gold/20">
+                          <SelectItem value="corte" className="focus:bg-gold/20 hover:bg-gold/10">Corte - R$ 60</SelectItem>
+                          <SelectItem value="barba" className="focus:bg-gold/20 hover:bg-gold/10">Barba - R$ 50</SelectItem>
+                          <SelectItem value="combo" className="focus:bg-gold/20 hover:bg-gold/10">Corte + Barba - R$ 90</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
