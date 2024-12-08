@@ -1,5 +1,6 @@
 import { Button } from "./ui/button";
 import { Clock, Crown } from "lucide-react";
+import { BookingDialog } from "./BookingDialog";
 
 interface ServiceCardProps {
   title: string;
@@ -33,22 +34,16 @@ export const ServiceCard = ({ title, description, price, duration, isPremium }: 
         <Clock className="w-4 h-4 mr-2" />
         {duration}
       </div>
-      <Button 
-        className={`w-full ${
-          isPremium 
-            ? "bg-gradient-to-r from-gold to-gold-light hover:from-gold-light hover:to-gold text-black font-bold shadow-lg hover:shadow-gold/20" 
-            : "bg-gold hover:bg-gold-light text-black font-semibold"
-        } transition-all duration-300`}
-      >
-        {isPremium ? (
-          <>
-            <Crown className="w-4 h-4 mr-2" />
-            Torne-se Premium
-          </>
-        ) : (
-          "Agendar"
-        )}
-      </Button>
+      {isPremium ? (
+        <Button 
+          className="w-full bg-gradient-to-r from-gold to-gold-light hover:from-gold-light hover:to-gold text-black font-bold shadow-lg hover:shadow-gold/20 transition-all duration-300"
+        >
+          <Crown className="w-4 h-4 mr-2" />
+          Torne-se Premium
+        </Button>
+      ) : (
+        <BookingDialog />
+      )}
     </div>
   );
 };
