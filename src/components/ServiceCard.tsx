@@ -11,6 +11,25 @@ interface ServiceCardProps {
 }
 
 export const ServiceCard = ({ title, description, price, duration, isPremium }: ServiceCardProps) => {
+  // Função para mapear o título do serviço para o valor do select
+  const getServiceValue = (title: string) => {
+    const serviceMap: { [key: string]: string } = {
+      "Corte": "corte",
+      "Barba (Barboterapia com Ozônio)": "barba",
+      "Sobrancelha": "sobrancelha",
+      "Pezinho": "pezinho",
+      "Corte + Barba": "corte-barba",
+      "Corte, Barba e Sobrancelha": "corte-barba-sobrancelha",
+      "Barba + Pezinho": "barba-pezinho",
+      "Luzes": "luzes",
+      "Platinado Global": "platinado",
+      "Relaxamento": "relaxamento",
+      "Selagem": "selagem",
+      "Pigmento para Barba": "pigmento-barba"
+    };
+    return serviceMap[title] || "";
+  };
+
   return (
     <div className={`${
       isPremium 
@@ -42,7 +61,7 @@ export const ServiceCard = ({ title, description, price, duration, isPremium }: 
           Torne-se Premium
         </Button>
       ) : (
-        <BookingDialog />
+        <BookingDialog defaultService={getServiceValue(title)} />
       )}
     </div>
   );

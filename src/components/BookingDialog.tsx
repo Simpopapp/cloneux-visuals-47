@@ -25,7 +25,11 @@ const formSchema = z.object({
   service: z.string().min(1, "Selecione um serviço"),
 });
 
-export const BookingDialog = () => {
+interface BookingDialogProps {
+  defaultService?: string;
+}
+
+export const BookingDialog = ({ defaultService }: BookingDialogProps) => {
   const [date, setDate] = useState<Date>();
   const [time, setTime] = useState<string>();
   const [step, setStep] = useState(1);
@@ -37,7 +41,7 @@ export const BookingDialog = () => {
       name: "",
       phone: "",
       email: "",
-      service: "",
+      service: defaultService || "",
     },
   });
 
@@ -65,7 +69,12 @@ export const BookingDialog = () => {
     setStep(1);
     setDate(undefined);
     setTime(undefined);
-    form.reset();
+    form.reset({
+      name: "",
+      phone: "",
+      email: "",
+      service: defaultService || "",
+    });
   };
 
   return (
@@ -74,7 +83,7 @@ export const BookingDialog = () => {
       if (!isOpen) resetDialog();
     }}>
       <DialogTrigger asChild>
-        <Button className="bg-gold hover:bg-gold-light text-black font-semibold">
+        <Button className="w-full bg-gold hover:bg-gold-light text-black font-semibold">
           Agendar Horário
         </Button>
       </DialogTrigger>
@@ -158,7 +167,16 @@ export const BookingDialog = () => {
                         <SelectContent className="bg-background/95 backdrop-blur-sm border border-gold/20">
                           <SelectItem value="corte" className="focus:bg-gold/20 hover:bg-gold/10">Corte - R$ 60</SelectItem>
                           <SelectItem value="barba" className="focus:bg-gold/20 hover:bg-gold/10">Barba - R$ 50</SelectItem>
-                          <SelectItem value="combo" className="focus:bg-gold/20 hover:bg-gold/10">Corte + Barba - R$ 90</SelectItem>
+                          <SelectItem value="sobrancelha" className="focus:bg-gold/20 hover:bg-gold/10">Sobrancelha - R$ 10</SelectItem>
+                          <SelectItem value="pezinho" className="focus:bg-gold/20 hover:bg-gold/10">Pezinho - R$ 25</SelectItem>
+                          <SelectItem value="corte-barba" className="focus:bg-gold/20 hover:bg-gold/10">Corte + Barba - R$ 90</SelectItem>
+                          <SelectItem value="corte-barba-sobrancelha" className="focus:bg-gold/20 hover:bg-gold/10">Corte + Barba + Sobrancelha - R$ 99</SelectItem>
+                          <SelectItem value="barba-pezinho" className="focus:bg-gold/20 hover:bg-gold/10">Barba + Pezinho - R$ 60</SelectItem>
+                          <SelectItem value="luzes" className="focus:bg-gold/20 hover:bg-gold/10">Luzes - A partir de R$ 80</SelectItem>
+                          <SelectItem value="platinado" className="focus:bg-gold/20 hover:bg-gold/10">Platinado Global - R$ 180</SelectItem>
+                          <SelectItem value="relaxamento" className="focus:bg-gold/20 hover:bg-gold/10">Relaxamento - R$ 50</SelectItem>
+                          <SelectItem value="selagem" className="focus:bg-gold/20 hover:bg-gold/10">Selagem - A partir de R$ 80</SelectItem>
+                          <SelectItem value="pigmento-barba" className="focus:bg-gold/20 hover:bg-gold/10">Pigmento para Barba - R$ 28</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
