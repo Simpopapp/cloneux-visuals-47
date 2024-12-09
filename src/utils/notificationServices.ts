@@ -11,10 +11,10 @@ export interface BookingData {
 
 export const sendBookingNotification = async (bookingData: BookingData) => {
   try {
-    // Envia e-mail para o barbeiro
+    // Envia e-mail para o barbeiro (usando o template que você já configurou)
     await emailjs.send(
-      'YOUR_SERVICE_ID',
-      'YOUR_TEMPLATE_ID',
+      'service_seu_id_atual',  // Mantenha o Service ID que você já está usando
+      'template_seu_id_atual', // Mantenha o Template ID que você já está usando
       {
         to_name: "Barbeiro",
         client_name: bookingData.name,
@@ -24,13 +24,13 @@ export const sendBookingNotification = async (bookingData: BookingData) => {
         date: bookingData.date,
         time: bookingData.time
       },
-      'YOUR_PUBLIC_KEY'
+      'sua_public_key_atual'  // Mantenha a Public Key que você já está usando
     );
 
-    // Envia e-mail para o cliente
+    // Envia e-mail para o cliente (usando o novo template que você vai criar)
     await emailjs.send(
-      'YOUR_SERVICE_ID',
-      'YOUR_CLIENT_TEMPLATE_ID', // Você precisará criar um novo template para o cliente
+      'service_seu_id_atual',  // Use o mesmo Service ID
+      'template_id_do_cliente', // Coloque aqui o ID do novo template que você vai criar para o cliente
       {
         to_name: bookingData.name,
         client_name: bookingData.name,
@@ -40,7 +40,7 @@ export const sendBookingNotification = async (bookingData: BookingData) => {
         date: bookingData.date,
         time: bookingData.time
       },
-      'YOUR_PUBLIC_KEY'
+      'sua_public_key_atual'  // Use a mesma Public Key
     );
     
     console.log('Emails enviados com sucesso');
