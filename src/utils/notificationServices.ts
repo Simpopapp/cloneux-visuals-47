@@ -81,7 +81,7 @@ export const shareOnWhatsApp = (bookingData: BookingData) => {
   );
 
   // Número da barbearia (substitua pelo número real)
-  const phoneNumber = "5511999999999";
+  const phoneNumber = "5519994108544";
   
   window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
 }
