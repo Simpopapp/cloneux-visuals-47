@@ -11,7 +11,6 @@ interface ServiceCardProps {
 }
 
 export const ServiceCard = ({ title, description, price, duration, isPremium }: ServiceCardProps) => {
-  // Função para mapear o título do serviço para o valor do select
   const getServiceValue = (title: string) => {
     const serviceMap: { [key: string]: string } = {
       "Corte": "corte",
@@ -34,34 +33,42 @@ export const ServiceCard = ({ title, description, price, duration, isPremium }: 
     <div className={`${
       isPremium 
         ? "bg-gradient-to-b from-card to-card/95 border-gold shadow-xl shadow-gold/10 hover:shadow-gold/20" 
-        : "bg-card hover:bg-card-hover border-gold/20 hover:border-gold/40"
-    } p-6 rounded-lg border transition-all duration-300 ${
-      isPremium ? "lg:scale-110" : ""
-    }`}>
-      <div className="flex justify-between items-start mb-2">
-        <h3 className={`${
-          isPremium 
-            ? "text-lg font-bold text-gold bg-gradient-to-r from-gold to-gold-light bg-clip-text text-transparent" 
-            : "text-lg font-semibold text-white"
-        }`}>
-          {title}
-        </h3>
-        <span className="text-gold font-semibold">R$ {price.toFixed(2)}</span>
+        : "bg-card hover:bg-card-hover"
+    } p-6 rounded-lg border border-gold/20 transition-all duration-300`}>
+      <div className="flex justify-between items-start mb-4">
+        <div>
+          <h3 className={`${
+            isPremium 
+              ? "text-xl font-bold text-gold" 
+              : "text-lg font-medium text-white"
+          }`}>
+            {title}
+          </h3>
+          <p className="text-sm text-gray-400 mt-1">{description}</p>
+        </div>
+        <span className="text-gold font-bold">R$ {price.toFixed(2)}</span>
       </div>
-      <p className="text-sm text-gray-400 mb-4">{description}</p>
-      <div className="flex items-center text-sm text-gray-400 mb-4">
+      
+      <div className="flex items-center text-sm text-gray-400 mb-6">
         <Clock className="w-4 h-4 mr-2" />
         {duration}
       </div>
+      
       {isPremium ? (
         <Button 
-          className="w-full bg-gradient-to-r from-gold to-gold-light hover:from-gold-light hover:to-gold text-black font-bold shadow-lg hover:shadow-gold/20 transition-all duration-300"
+          className="w-full bg-gold hover:bg-gold-light text-black font-bold py-3"
         >
           <Crown className="w-4 h-4 mr-2" />
-          Torne-se Premium
+          TORNE-SE PREMIUM
         </Button>
       ) : (
-        <BookingDialog defaultService={getServiceValue(title)} />
+        <BookingDialog defaultService={getServiceValue(title)}>
+          <Button 
+            className="w-full bg-gold hover:bg-gold-light text-black font-bold py-3"
+          >
+            AGENDAR HORÁRIO
+          </Button>
+        </BookingDialog>
       )}
     </div>
   );

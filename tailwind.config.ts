@@ -22,16 +22,16 @@ export default {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        background: "#1a1f2c",
+        background: "#0F1117",
         foreground: "#ffffff",
         gold: {
-          DEFAULT: "#d4af37",
-          light: "#e4bf47",
-          dark: "#c49f27"
+          DEFAULT: "#FFA500",
+          light: "#FFB732",
+          dark: "#E69500"
         },
         card: {
-          DEFAULT: "rgba(32, 37, 49, 0.8)",
-          hover: "rgba(32, 37, 49, 0.95)"
+          DEFAULT: "rgba(16, 18, 27, 0.8)",
+          hover: "rgba(16, 18, 27, 0.95)"
         },
         muted: {
           DEFAULT: "#374151",
@@ -39,7 +39,7 @@ export default {
         }
       },
       backgroundImage: {
-        'hero': "linear-gradient(rgba(26, 31, 44, 0.7), rgba(26, 31, 44, 0.8)), url('/lovable-uploads/54640f51-cf29-4750-9008-f481803b60ed.png')"
+        'hero': "linear-gradient(rgba(15, 17, 23, 0.7), rgba(15, 17, 23, 0.8)), url('/lovable-uploads/54640f51-cf29-4750-9008-f481803b60ed.png')"
       },
       fontFamily: {
         'serif': ['Playfair Display', 'serif'],

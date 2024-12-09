@@ -1,4 +1,5 @@
 import { ServiceCard } from "./ServiceCard";
+import { Scissors, Star, Sparkles } from "lucide-react";
 
 const BASIC_SERVICES = [
   {
@@ -95,14 +96,24 @@ export const ServicesSection = () => {
   return (
     <section className="py-20 px-4 bg-background">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold text-center mb-12">Nossos Serviços</h2>
+        <div className="mb-16">
+          <h3 className="text-xl font-semibold mb-8 flex items-center justify-center">
+            <Crown className="w-6 h-6 text-gold mr-2" />
+            <span className="text-gold">Sr. Oliveira PREMIUM</span>
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 place-items-center">
+            {PLANS.map((service) => (
+              <ServiceCard key={service.title} {...service} />
+            ))}
+          </div>
+        </div>
         
         <div className="mb-16">
-          <h3 className="text-xl font-semibold mb-8 flex items-center">
-            <span className="text-gold mr-2">✂</span> 
-            Serviços Básicos
+          <h3 className="text-xl font-semibold mb-8 flex items-center justify-center">
+            <Scissors className="w-6 h-6 text-gold mr-2" />
+            <span className="text-gold">Serviços Básicos</span>
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {BASIC_SERVICES.map((service) => (
               <ServiceCard key={service.title} {...service} />
             ))}
@@ -110,9 +121,9 @@ export const ServicesSection = () => {
         </div>
 
         <div className="mb-16">
-          <h3 className="text-xl font-semibold mb-8 flex items-center">
-            <span className="text-gold mr-2">⭐</span>
-            Combos
+          <h3 className="text-xl font-semibold mb-8 flex items-center justify-center">
+            <Star className="w-6 h-6 text-gold mr-2" />
+            <span className="text-gold">Combos</span>
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {COMBO_SERVICES.map((service) => (
@@ -121,25 +132,13 @@ export const ServicesSection = () => {
           </div>
         </div>
 
-        <div className="mb-16">
-          <h3 className="text-xl font-semibold mb-8 flex items-center">
-            <span className="text-gold mr-2">💈</span>
-            Tratamentos Especiais
+        <div>
+          <h3 className="text-xl font-semibold mb-8 flex items-center justify-center">
+            <Sparkles className="w-6 h-6 text-gold mr-2" />
+            <span className="text-gold">Tratamentos Especiais</span>
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {SPECIAL_TREATMENTS.map((service) => (
-              <ServiceCard key={service.title} {...service} />
-            ))}
-          </div>
-        </div>
-
-        <div>
-          <h3 className="text-xl font-semibold mb-8 flex items-center justify-center">
-            <span className="text-gold mr-2">👑</span>
-            Plano Exclusivo
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 place-items-center">
-            {PLANS.map((service) => (
               <ServiceCard key={service.title} {...service} />
             ))}
           </div>
