@@ -68,7 +68,7 @@ export const shareOnWhatsApp = (bookingData: BookingData) => {
   };
 
   const serviceName = serviceNames[bookingData.service] || bookingData.service;
-  const BARBER_PHONE = '5511999999999'; // Substitua pelo seu número real
+  const BARBER_PHONE = '5519994108544'; // Substitua pelo seu número real
   const BARBER_ADDRESS = 'Rua Exemplo, 123 - Centro, Cidade'; // Substitua pelo endereço real
 
   // Mensagem única contendo ambos os contatos
@@ -130,7 +130,7 @@ BEGIN:VEVENT
 DTSTART:${formatDate(startDate)}
 DTEND:${formatDate(endDate)}
 SUMMARY:${serviceName} - Sr. Oliveira Barbearia
-DESCRIPTION:Seu agendamento na Sr. Oliveira Barbearia\\n\\nServiço: ${serviceName}\\nData: ${bookingData.date}\\nHorário: ${bookingData.time}\\n\\nEndereço: Rua Exemplo\\, 123\\nTelefone: (11) 99999-9999\\n\\nEm caso de imprevisto\\, favor entrar em contato para remarcar.
+DESCRIPTION:Seu agendamento na Sr. Oliveira Barbearia\\n\\nServiço: ${serviceName}\\nData: ${bookingData.date}\\nHorário: ${bookingData.time}\\n\\nEndereço: Rua Exemplo\\, 123\\nTelefone: (19) 994108544\\n\\nEm caso de imprevisto\\, favor entrar em contato para remarcar.
 LOCATION:Sr. Oliveira Barbearia - Rua Exemplo\\, 123
 STATUS:CONFIRMED
 BEGIN:VALARM
