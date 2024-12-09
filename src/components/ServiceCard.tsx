@@ -1,5 +1,5 @@
 import { Button } from "./ui/button";
-import { Clock, Crown, Lock } from "lucide-react";
+import { Clock, Crown } from "lucide-react";
 import { BookingDialog } from "./BookingDialog";
 import { useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
@@ -14,7 +14,6 @@ interface ServiceCardProps {
 
 export const ServiceCard = ({ title, description, price, duration, isPremium }: ServiceCardProps) => {
   const [showPremiumModal, setShowPremiumModal] = useState(false);
-  const [showPrice, setShowPrice] = useState(false);
 
   const getServiceValue = (title: string) => {
     const serviceMap: { [key: string]: string } = {
@@ -36,7 +35,6 @@ export const ServiceCard = ({ title, description, price, duration, isPremium }: 
 
   const handlePremiumClick = () => {
     setShowPremiumModal(true);
-    setShowPrice(true);
   };
 
   return (
@@ -57,14 +55,9 @@ export const ServiceCard = ({ title, description, price, duration, isPremium }: 
             </h3>
             <p className="text-sm text-gray-400 mt-1 group-hover:text-gray-300 transition-colors">{description}</p>
           </div>
-          {showPrice ? (
-            <span className="text-gold font-bold text-lg animate-fade-in">R$ {price.toFixed(2)}</span>
-          ) : (
-            <span className="text-gold/50 font-bold text-lg flex items-center gap-2">
-              <Lock className="w-4 h-4" />
-              Premium
-            </span>
-          )}
+          <span className="text-gold font-bold text-lg animate-fade-in">
+            R$ {price.toFixed(2)}
+          </span>
         </div>
         
         <div className="flex items-center text-sm text-gray-400 mb-6 group-hover:text-gray-300 transition-colors">
