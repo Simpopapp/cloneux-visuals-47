@@ -1,5 +1,6 @@
 import { ServiceCard } from "./ServiceCard";
 import { Scissors, Star, Sparkles, Crown } from "lucide-react";
+import { useInView } from "react-intersection-observer";
 
 const BASIC_SERVICES = [
   {
@@ -93,6 +94,16 @@ const PLANS = [
 ];
 
 export const ServicesSection = () => {
+  const [comboRef, comboInView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+
+  const [specialRef, specialInView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+
   return (
     <section className="py-20 px-4 bg-background">
       <div className="max-w-6xl mx-auto">
@@ -120,7 +131,14 @@ export const ServicesSection = () => {
           </div>
         </div>
 
-        <div className="mb-16">
+        <div 
+          ref={comboRef}
+          className={`mb-16 transition-all duration-1000 transform ${
+            comboInView 
+              ? "opacity-100 translate-y-0" 
+              : "opacity-0 translate-y-10"
+          }`}
+        >
           <h3 className="text-xl font-semibold mb-8 flex items-center justify-center">
             <Star className="w-6 h-6 text-gold mr-2" />
             <span className="text-gold">Combos</span>
@@ -132,7 +150,14 @@ export const ServicesSection = () => {
           </div>
         </div>
 
-        <div>
+        <div 
+          ref={specialRef}
+          className={`transition-all duration-1000 transform ${
+            specialInView 
+              ? "opacity-100 translate-y-0" 
+              : "opacity-0 translate-y-10"
+          }`}
+        >
           <h3 className="text-xl font-semibold mb-8 flex items-center justify-center">
             <Sparkles className="w-6 h-6 text-gold mr-2" />
             <span className="text-gold">Tratamentos Especiais</span>

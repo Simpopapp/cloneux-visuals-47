@@ -10,6 +10,7 @@ import { toast } from "sonner";
 import { ServiceSelect } from "./booking/ServiceSelect";
 import { UserDataForm } from "./booking/UserDataForm";
 import { DateTimeSelect } from "./booking/DateTimeSelect";
+import { sendBookingNotification, addToGoogleCalendar } from "../utils/notificationServices";
 
 const formSchema = z.object({
   name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
@@ -39,24 +40,34 @@ export const BookingDialog = ({ defaultService, children }: BookingDialogProps) 
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     if (!date || !time) {
       toast.error("Selecione data e horário");
       return;
     }
 
-    console.log({
+    const bookingData = {
       ...values,
       date: format(date, "dd/MM/yyyy"),
       time,
-    });
+    };
 
-    toast.success("Agendamento realizado com sucesso!");
-    form.reset();
-    setDate(undefined);
-    setTime(undefined);
-    setStep(1);
-    setOpen(false);
+    try {
+      await Promise.all([
+        sendBookingNotification(bookingData),
+        addToGoogleCalendar(bookingData)
+      ]);
+
+      toast.success("Agendamento realizado com sucesso!");
+      form.reset();
+      setDate(undefined);
+      setTime(undefined);
+      setStep(1);
+      setOpen(false);
+    } catch (error) {
+      console.error('Error processing booking:', error);
+      toast.error("Erro ao realizar agendamento. Tente novamente.");
+    }
   };
 
   const resetDialog = () => {
