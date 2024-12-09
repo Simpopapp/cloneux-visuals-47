@@ -112,10 +112,55 @@ export const ServicesSection = () => {
             <Crown className="w-6 h-6 text-gold mr-2" />
             <span className="text-gold">Sr. Oliveira PREMIUM</span>
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 place-items-center">
-            {PLANS.map((service) => (
-              <ServiceCard key={service.title} {...service} />
-            ))}
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            <div className="relative h-[400px] rounded-lg overflow-hidden">
+              <img 
+                src="/lovable-uploads/6020cf09-2b24-487d-945a-9124c2be10fb.png"
+                alt="Experiência Premium"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute top-4 right-4">
+                <span className="bg-gold px-4 py-1 rounded-full text-black text-sm font-semibold">
+                  Mais Vendido
+                </span>
+              </div>
+            </div>
+            
+            <div className="flex flex-col justify-center space-y-6">
+              <div>
+                <h4 className="text-2xl font-serif text-gold mb-4">
+                  Elegância e Cuidado Exclusivo
+                </h4>
+                <p className="text-gray-300 leading-relaxed">
+                  Experimente o mais alto padrão em cuidados masculinos. Nosso pacote premium inclui:
+                </p>
+                <ul className="mt-4 space-y-2 text-gray-300">
+                  <li className="flex items-center gap-2">
+                    <Crown className="w-4 h-4 text-gold" />
+                    Corte personalizado com acabamento premium
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Crown className="w-4 h-4 text-gold" />
+                    Barba alinhada com produtos exclusivos
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Crown className="w-4 h-4 text-gold" />
+                    Hidratação facial profunda
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Crown className="w-4 h-4 text-gold" />
+                    Atendimento prioritário
+                  </li>
+                </ul>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {PLANS.map((service) => (
+                  <ServiceCard key={service.title} {...service} />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
         
