@@ -75,15 +75,12 @@ export const shareOnWhatsApp = (bookingData: BookingData) => {
     `📅 Data: ${bookingData.date}\n` +
     `⏰ Horário: ${bookingData.time}\n` +
     `✂️ Serviço: ${serviceName}\n\n` +
-    `📍 Endereço: Rua Exemplo, 123\n` +
-    `📞 Telefone: (11) 99999-9999\n\n` +
+    `📍 Endereço: Rua Exemplo, 123 - Centro, Cidade\n` +
+    `📞 Seu telefone: ${bookingData.phone}\n\n` +
     `Em caso de imprevisto, favor entrar em contato para remarcar.`
   );
 
-  // Número da barbearia (substitua pelo número real)
-  const phoneNumber = "5519994108544";
-  
-  window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+  window.open(`https://wa.me/${bookingData.phone}?text=${message}`, '_blank');
 }
 
 export const downloadCalendarEvent = (bookingData: BookingData) => {
