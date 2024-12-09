@@ -80,7 +80,13 @@ export const shareOnWhatsApp = (bookingData: BookingData) => {
     `Em caso de imprevisto, favor entrar em contato para remarcar.`
   );
 
-  window.open(`https://wa.me/${bookingData.phone}?text=${message}`, '_blank');
+  // Formata o número de telefone para o padrão internacional
+  const formattedPhone = bookingData.phone
+    .replace(/\D/g, '') // Remove todos os caracteres não numéricos
+    .replace(/^0/, '') // Remove o 0 inicial se houver
+    .replace(/^(\d{2})/, '55$1'); // Adiciona o código do país (55 para Brasil)
+
+  window.open(`https://wa.me/${formattedPhone}?text=${message}`, '_blank');
 }
 
 export const downloadCalendarEvent = (bookingData: BookingData) => {
