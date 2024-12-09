@@ -47,9 +47,12 @@ export const BookingDialog = ({ defaultService, children }: BookingDialogProps) 
     }
 
     const bookingData: BookingData = {
-      ...values,
+      name: values.name,
+      phone: values.phone,
+      email: values.email,
+      service: values.service,
       date: format(date, "dd/MM/yyyy"),
-      time,
+      time: time,
     };
 
     try {

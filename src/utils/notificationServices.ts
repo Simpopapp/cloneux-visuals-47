@@ -26,7 +26,7 @@ export const sendBookingNotification = async (bookingData: BookingData) => {
       'YOUR_PUBLIC_KEY' // Substitua pela sua Public Key do EmailJS
     );
     
-    console.log('Email enviado:', response);
+    console.log('Email enviado com sucesso:', response);
     return response;
   } catch (error) {
     console.error('Erro ao enviar email:', error);
