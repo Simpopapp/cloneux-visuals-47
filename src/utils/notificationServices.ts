@@ -80,7 +80,10 @@ export const shareOnWhatsApp = (bookingData: BookingData) => {
     `Em caso de imprevisto, favor entrar em contato para remarcar.`
   );
 
-  window.open(`https://wa.me/?text=${message}`, '_blank');
+  // Número da barbearia (substitua pelo número real)
+  const phoneNumber = "5511999999999";
+  
+  window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
 }
 
 export const downloadCalendarEvent = (bookingData: BookingData) => {
