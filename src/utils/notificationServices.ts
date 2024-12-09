@@ -34,39 +34,36 @@ export const sendBookingNotification = async (bookingData: BookingData) => {
   }
 }
 
-export const addToGoogleCalendar = async (bookingData: BookingData) => {
-  // Função para converter o formato da data
-  const formatDateTime = (date: string, time: string) => {
-    const [day, month, year] = date.split('/');
-    const [hour, minute] = time.split(':');
-    return new Date(Number(year), Number(month) - 1, Number(day), Number(hour), Number(minute));
-  };
+export const downloadCalendarEvent = (bookingData: BookingData) => {
+  // Converter data e hora para formato adequado
+  const [day, month, year] = bookingData.date.split('/');
+  const [hour, minute] = bookingData.time.split(':');
+  const startDate = new Date(Number(year), Number(month) - 1, Number(day), Number(hour), Number(minute));
+  const endDate = new Date(startDate.getTime() + 60 * 60 * 1000); // Adiciona 1 hora
 
-  const startTime = formatDateTime(bookingData.date, bookingData.time);
-  const endTime = new Date(startTime.getTime() + 60 * 60 * 1000); // Adiciona 1 hora
+  // Criar conteúdo do arquivo .ics
+  const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+DTSTART:${formatDate(startDate)}
+DTEND:${formatDate(endDate)}
+SUMMARY:Agendamento: ${bookingData.service}
+DESCRIPTION:Cliente: ${bookingData.name}\\nTelefone: ${bookingData.phone}\\nEmail: ${bookingData.email}
+LOCATION:Sr. Oliveira Barbearia
+END:VEVENT
+END:VCALENDAR`;
 
-  const event = {
-    'summary': `Agendamento: ${bookingData.service}`,
-    'description': `Cliente: ${bookingData.name}\nTelefone: ${bookingData.phone}\nEmail: ${bookingData.email}`,
-    'start': {
-      'dateTime': startTime.toISOString(),
-      'timeZone': 'America/Sao_Paulo'
-    },
-    'end': {
-      'dateTime': endTime.toISOString(),
-      'timeZone': 'America/Sao_Paulo'
-    }
-  };
+  // Criar e fazer download do arquivo
+  const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+  const link = document.createElement('a');
+  link.href = window.URL.createObjectURL(blob);
+  link.setAttribute('download', 'agendamento.ics');
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
 
-  // Aqui você precisará implementar a lógica de autenticação do Google Calendar
-  // e a chamada para criar o evento
-  console.log('Evento a ser criado:', event);
-  
-  // Exemplo de como seria a chamada (você precisará implementar a autenticação):
-  /*
-  const response = await gapi.client.calendar.events.insert({
-    'calendarId': 'primary',
-    'resource': event
-  });
-  */
+// Função auxiliar para formatar data no padrão ICS
+function formatDate(date: Date) {
+  return date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
 }
