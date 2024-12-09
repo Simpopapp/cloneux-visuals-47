@@ -11,9 +11,10 @@ export interface BookingData {
 
 export const sendBookingNotification = async (bookingData: BookingData) => {
   try {
-    const response = await emailjs.send(
-      'YOUR_SERVICE_ID', // Substitua pelo seu Service ID do EmailJS
-      'YOUR_TEMPLATE_ID', // Substitua pelo seu Template ID do EmailJS
+    // Envia e-mail para o barbeiro
+    await emailjs.send(
+      'YOUR_SERVICE_ID',
+      'YOUR_TEMPLATE_ID',
       {
         to_name: "Barbeiro",
         client_name: bookingData.name,
@@ -23,11 +24,27 @@ export const sendBookingNotification = async (bookingData: BookingData) => {
         date: bookingData.date,
         time: bookingData.time
       },
-      'YOUR_PUBLIC_KEY' // Substitua pela sua Public Key do EmailJS
+      'YOUR_PUBLIC_KEY'
+    );
+
+    // Envia e-mail para o cliente
+    await emailjs.send(
+      'YOUR_SERVICE_ID',
+      'YOUR_CLIENT_TEMPLATE_ID', // Você precisará criar um novo template para o cliente
+      {
+        to_name: bookingData.name,
+        client_name: bookingData.name,
+        client_phone: bookingData.phone,
+        client_email: bookingData.email,
+        service: bookingData.service,
+        date: bookingData.date,
+        time: bookingData.time
+      },
+      'YOUR_PUBLIC_KEY'
     );
     
-    console.log('Email enviado com sucesso:', response);
-    return response;
+    console.log('Emails enviados com sucesso');
+    return true;
   } catch (error) {
     console.error('Erro ao enviar email:', error);
     throw error;
