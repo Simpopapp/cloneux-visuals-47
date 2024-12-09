@@ -27,10 +27,10 @@ export const sendBookingNotification = async (bookingData: BookingData) => {
       'UgkVEtqBQyHsR8DDF'  // Mantenha a Public Key que você já está usando
     );
 
-    // Envia e-mail para o cliente (usando o novo template que você vai criar)
+    // Envia e-mail para o cliente (usando o novo template que você criou)
     await emailjs.send(
       'service_wef6lur',  // Use o mesmo Service ID
-      'template_909kvnt', // Coloque aqui o ID do novo template que você vai criar para o cliente
+      'template_909kvnt', // Coloque aqui o ID do novo template que você criou para o cliente
       {
         to_name: bookingData.name,
         client_name: bookingData.name,
@@ -83,8 +83,8 @@ BEGIN:VEVENT
 DTSTART:${formatDate(startDate)}
 DTEND:${formatDate(endDate)}
 SUMMARY:${serviceName} - Sr. Oliveira Barbearia
-DESCRIPTION:Seu agendamento na Sr. Oliveira Barbearia\\n\\nServiço: ${serviceName}\\nData: ${bookingData.date}\\nHorário: ${bookingData.time}\\n\\nEndereço: Rua Exemplo, 123\\nTelefone: (11) 99999-9999\\n\\nEm caso de imprevisto, favor entrar em contato para remarcar.
-LOCATION:Sr. Oliveira Barbearia - Rua Exemplo, 123
+DESCRIPTION:Seu agendamento na Sr. Oliveira Barbearia\\n\\nServiço: ${serviceName}\\nData: ${bookingData.date}\\nHorário: ${bookingData.time}\\n\\nEndereço: Rua Exemplo\\, 123\\nTelefone: (11) 99999-9999\\n\\nEm caso de imprevisto\\, favor entrar em contato para remarcar.
+LOCATION:Sr. Oliveira Barbearia - Rua Exemplo\\, 123
 STATUS:CONFIRMED
 BEGIN:VALARM
 TRIGGER:-PT1H
