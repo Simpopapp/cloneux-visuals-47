@@ -1,5 +1,5 @@
 import { ServiceCard } from "./ServiceCard";
-import { Scissors, Star, Sparkles } from "lucide-react";
+import { Scissors, Star, Sparkles, Crown } from "lucide-react";
 
 const BASIC_SERVICES = [
   {

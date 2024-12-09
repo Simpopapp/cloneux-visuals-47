@@ -9,8 +9,8 @@ export const Hero = () => {
         <h1 className="font-serif text-5xl md:text-6xl font-bold mb-2 text-gold animate-fade-in">Sr. Oliveira</h1>
         <p className="text-2xl mb-1 text-white font-light tracking-wider">BARBEARIA</p>
         <p className="text-xl mb-8 text-gray-300">Premium grooming for the modern gentleman</p>
-        <BookingDialog>
-          <Button className="bg-gold hover:bg-gold-light text-black font-bold px-8 py-3 rounded-md shadow-lg hover:shadow-gold/20 transition-all duration-300">
+        <BookingDialog defaultService="">
+          <Button className="bg-gold hover:bg-gold-light text-black font-bold px-8 py-3 rounded-md shadow-lg hover:shadow-gold/20 transition-all duration-300 hover:scale-[1.02]">
             AGENDAR HORÁRIO
           </Button>
         </BookingDialog>

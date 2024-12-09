@@ -18,11 +18,12 @@ const formSchema = z.object({
   service: z.string().min(1, "Selecione um serviço"),
 });
 
-interface BookingDialogProps {
+export interface BookingDialogProps {
   defaultService?: string;
+  children: React.ReactNode;
 }
 
-export const BookingDialog = ({ defaultService }: BookingDialogProps) => {
+export const BookingDialog = ({ defaultService, children }: BookingDialogProps) => {
   const [date, setDate] = useState<Date>();
   const [time, setTime] = useState<string>();
   const [step, setStep] = useState(1);
@@ -79,11 +80,9 @@ export const BookingDialog = ({ defaultService }: BookingDialogProps) => {
       }}
     >
       <DialogTrigger asChild>
-        <Button className="w-full bg-gold hover:bg-gold-light text-black font-semibold">
-          Agendar Horário
-        </Button>
+        {children}
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] bg-background border-gold/20">
+      <DialogContent className="sm:max-w-[425px] bg-background/95 backdrop-blur-sm border-gold/20 shadow-xl shadow-gold/10">
         <DialogHeader>
           <DialogTitle className="text-2xl font-serif text-gold">
             {step === 1 ? "Escolha a Data e Horário" : "Complete seu Agendamento"}
@@ -110,7 +109,7 @@ export const BookingDialog = ({ defaultService }: BookingDialogProps) => {
                   type="button" 
                   variant="outline" 
                   onClick={() => setStep(1)}
-                  className="flex-1 border-gold/20 hover:border-gold/40"
+                  className="flex-1 border-gold/20 hover:border-gold/40 hover:bg-gold/5"
                 >
                   Voltar
                 </Button>

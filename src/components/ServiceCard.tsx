@@ -30,33 +30,33 @@ export const ServiceCard = ({ title, description, price, duration, isPremium }: 
   };
 
   return (
-    <div className={`${
+    <div className={`group ${
       isPremium 
         ? "bg-gradient-to-b from-card to-card/95 border-gold shadow-xl shadow-gold/10 hover:shadow-gold/20" 
         : "bg-card hover:bg-card-hover"
-    } p-6 rounded-lg border border-gold/20 transition-all duration-300`}>
+    } p-6 rounded-lg border border-gold/20 transition-all duration-300 hover:scale-[1.02]`}>
       <div className="flex justify-between items-start mb-4">
         <div>
           <h3 className={`${
             isPremium 
               ? "text-xl font-bold text-gold" 
-              : "text-lg font-medium text-white"
+              : "text-lg font-medium text-white group-hover:text-gold transition-colors"
           }`}>
             {title}
           </h3>
-          <p className="text-sm text-gray-400 mt-1">{description}</p>
+          <p className="text-sm text-gray-400 mt-1 group-hover:text-gray-300 transition-colors">{description}</p>
         </div>
-        <span className="text-gold font-bold">R$ {price.toFixed(2)}</span>
+        <span className="text-gold font-bold text-lg">R$ {price.toFixed(2)}</span>
       </div>
       
-      <div className="flex items-center text-sm text-gray-400 mb-6">
+      <div className="flex items-center text-sm text-gray-400 mb-6 group-hover:text-gray-300 transition-colors">
         <Clock className="w-4 h-4 mr-2" />
         {duration}
       </div>
       
       {isPremium ? (
         <Button 
-          className="w-full bg-gold hover:bg-gold-light text-black font-bold py-3"
+          className="w-full bg-gold hover:bg-gold-light text-black font-bold py-3 transform transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
         >
           <Crown className="w-4 h-4 mr-2" />
           TORNE-SE PREMIUM
@@ -64,7 +64,7 @@ export const ServiceCard = ({ title, description, price, duration, isPremium }: 
       ) : (
         <BookingDialog defaultService={getServiceValue(title)}>
           <Button 
-            className="w-full bg-gold hover:bg-gold-light text-black font-bold py-3"
+            className="w-full bg-gold hover:bg-gold-light text-black font-bold py-3 transform transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
           >
             AGENDAR HORÁRIO
           </Button>

@@ -10,11 +10,11 @@
 
 @layer components {
   .btn-gold {
-    @apply bg-gold hover:bg-gold-light text-black font-semibold py-2 px-6 rounded transition-colors;
+    @apply bg-gold hover:bg-gold-light text-black font-semibold py-2 px-6 rounded transition-all duration-300 hover:scale-[1.02] hover:shadow-lg;
   }
   
   .service-card {
-    @apply bg-card p-6 rounded-lg border border-gold/20 hover:border-gold/40 transition-colors;
+    @apply bg-card p-6 rounded-lg border border-gold/20 hover:border-gold/40 transition-all duration-300 hover:scale-[1.02];
   }
 }
 
