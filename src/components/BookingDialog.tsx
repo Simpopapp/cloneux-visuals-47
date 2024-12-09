@@ -10,7 +10,7 @@ import { toast } from "sonner";
 import { ServiceSelect } from "./booking/ServiceSelect";
 import { UserDataForm } from "./booking/UserDataForm";
 import { DateTimeSelect } from "./booking/DateTimeSelect";
-import { sendBookingNotification, addToGoogleCalendar } from "../utils/notificationServices";
+import { sendBookingNotification, addToGoogleCalendar, type BookingData } from "../utils/notificationServices";
 
 const formSchema = z.object({
   name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
@@ -46,7 +46,7 @@ export const BookingDialog = ({ defaultService, children }: BookingDialogProps) 
       return;
     }
 
-    const bookingData = {
+    const bookingData: BookingData = {
       ...values,
       date: format(date, "dd/MM/yyyy"),
       time,
