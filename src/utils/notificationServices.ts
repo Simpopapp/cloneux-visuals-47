@@ -51,6 +51,38 @@ export const sendBookingNotification = async (bookingData: BookingData) => {
   }
 }
 
+export const shareOnWhatsApp = (bookingData: BookingData) => {
+  const serviceNames: { [key: string]: string } = {
+    'corte': 'Corte de Cabelo',
+    'barba': 'Barba',
+    'sobrancelha': 'Design de Sobrancelha',
+    'pezinho': 'Pezinho',
+    'corte-barba': 'Corte + Barba',
+    'corte-barba-sobrancelha': 'Corte + Barba + Sobrancelha',
+    'barba-pezinho': 'Barba + Pezinho',
+    'luzes': 'Luzes',
+    'platinado': 'Platinado Global',
+    'relaxamento': 'Relaxamento',
+    'selagem': 'Selagem',
+    'pigmento-barba': 'Pigmentação de Barba'
+  };
+
+  const serviceName = serviceNames[bookingData.service] || bookingData.service;
+  
+  const message = encodeURIComponent(
+    `*Confirmação de Agendamento - Sr. Oliveira Barbearia*\n\n` +
+    `Olá! Aqui estão os detalhes do seu agendamento:\n\n` +
+    `📅 Data: ${bookingData.date}\n` +
+    `⏰ Horário: ${bookingData.time}\n` +
+    `✂️ Serviço: ${serviceName}\n\n` +
+    `📍 Endereço: Rua Exemplo, 123\n` +
+    `📞 Telefone: (11) 99999-9999\n\n` +
+    `Em caso de imprevisto, favor entrar em contato para remarcar.`
+  );
+
+  window.open(`https://wa.me/?text=${message}`, '_blank');
+}
+
 export const downloadCalendarEvent = (bookingData: BookingData) => {
   // Converter data e hora para formato adequado
   const [day, month, year] = bookingData.date.split('/');

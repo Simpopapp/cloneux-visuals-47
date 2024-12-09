@@ -10,7 +10,7 @@ import { toast } from "sonner";
 import { ServiceSelect } from "./booking/ServiceSelect";
 import { UserDataForm } from "./booking/UserDataForm";
 import { DateTimeSelect } from "./booking/DateTimeSelect";
-import { sendBookingNotification, downloadCalendarEvent, type BookingData } from "../utils/notificationServices";
+import { sendBookingNotification, downloadCalendarEvent, shareOnWhatsApp, type BookingData } from "../utils/notificationServices";
 
 const formSchema = z.object({
   name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
@@ -58,6 +58,7 @@ export const BookingDialog = ({ defaultService, children }: BookingDialogProps) 
     try {
       await sendBookingNotification(bookingData);
       downloadCalendarEvent(bookingData);
+      shareOnWhatsApp(bookingData);
 
       toast.success("Agendamento realizado com sucesso!");
       form.reset();
