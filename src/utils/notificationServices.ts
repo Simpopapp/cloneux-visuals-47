@@ -68,25 +68,43 @@ export const shareOnWhatsApp = (bookingData: BookingData) => {
   };
 
   const serviceName = serviceNames[bookingData.service] || bookingData.service;
-  
-  const message = encodeURIComponent(
+  const BARBER_PHONE = '5511999999999'; // Substitua pelo seu número real
+  const BARBER_ADDRESS = 'Rua Exemplo, 123 - Centro, Cidade'; // Substitua pelo endereço real
+
+  // Mensagem para o cliente
+  const clientMessage = encodeURIComponent(
     `*Confirmação de Agendamento - Sr. Oliveira Barbearia*\n\n` +
-    `Olá! Aqui estão os detalhes do seu agendamento:\n\n` +
+    `Olá ${bookingData.name}! Aqui estão os detalhes do seu agendamento:\n\n` +
     `📅 Data: ${bookingData.date}\n` +
     `⏰ Horário: ${bookingData.time}\n` +
     `✂️ Serviço: ${serviceName}\n\n` +
-    `📍 Endereço: Rua Exemplo, 123 - Centro, Cidade\n` +
-    `📞 Seu telefone: ${bookingData.phone}\n\n` +
+    `📍 Endereço: ${BARBER_ADDRESS}\n` +
+    `📞 Nosso telefone: ${BARBER_PHONE}\n\n` +
     `Em caso de imprevisto, favor entrar em contato para remarcar.`
   );
 
-  // Formata o número de telefone para o padrão internacional
-  const formattedPhone = bookingData.phone
-    .replace(/\D/g, '') // Remove todos os caracteres não numéricos
-    .replace(/^0/, '') // Remove o 0 inicial se houver
-    .replace(/^(\d{2})/, '55$1'); // Adiciona o código do país (55 para Brasil)
+  // Mensagem para o barbeiro
+  const barberMessage = encodeURIComponent(
+    `*Novo Agendamento Recebido*\n\n` +
+    `Cliente: ${bookingData.name}\n` +
+    `📅 Data: ${bookingData.date}\n` +
+    `⏰ Horário: ${bookingData.time}\n` +
+    `✂️ Serviço: ${serviceName}\n` +
+    `📞 Telefone do cliente: ${bookingData.phone}\n` +
+    `📧 Email: ${bookingData.email}`
+  );
 
-  window.open(`https://wa.me/${formattedPhone}?text=${message}`, '_blank');
+  // Formata o número do cliente para o padrão internacional
+  const formattedClientPhone = bookingData.phone
+    .replace(/\D/g, '')
+    .replace(/^0/, '')
+    .replace(/^(\d{2})/, '55$1');
+
+  // Abre WhatsApp para o cliente
+  window.open(`https://wa.me/${formattedClientPhone}?text=${clientMessage}`, '_blank');
+
+  // Abre WhatsApp para o barbeiro
+  window.open(`https://wa.me/${BARBER_PHONE}?text=${barberMessage}`, '_blank');
 }
 
 export const downloadCalendarEvent = (bookingData: BookingData) => {
