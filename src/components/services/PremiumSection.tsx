@@ -112,8 +112,10 @@ export const PremiumSection = ({ plans }: PremiumSectionProps) => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-8">
-                  <h3 className="text-3xl font-serif text-white mb-3">Eleve seu Estilo</h3>
-                  <p className="text-gray-200 leading-relaxed">
+                  <h3 className="text-4xl font-serif text-transparent bg-clip-text bg-gradient-to-r from-gold via-gold-light to-gold mb-4">
+                    Eleve seu Estilo
+                  </h3>
+                  <p className="text-lg text-gray-100 leading-relaxed max-w-md">
                     Desfrute de uma experiência exclusiva com produtos premium e atendimento personalizado
                   </p>
                 </div>
@@ -122,7 +124,7 @@ export const PremiumSection = ({ plans }: PremiumSectionProps) => {
               <div className="space-y-6">
                 <button 
                   onClick={() => setShowPremiumModal(false)}
-                  className="w-full bg-gradient-to-r from-gold to-gold-light hover:from-gold-light hover:to-gold text-black text-lg font-bold py-6 rounded-xl transform transition-all duration-300 hover:scale-[1.02] hover:shadow-lg flex items-center justify-center gap-2 relative overflow-hidden group"
+                  className="w-full bg-gradient-to-r from-gold to-gold-light hover:from-gold-light hover:to-gold text-black text-lg font-bold py-6 rounded-xl transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl flex items-center justify-center gap-2 relative overflow-hidden group"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000" />
                   <Crown className="w-5 h-5" />
