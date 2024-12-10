@@ -131,8 +131,6 @@ export const PremiumSection = ({ plans }: PremiumSectionProps) => {
                     <span className="relative">Começar Agora</span>
                   </button>
 
-                <p className="text-center text-sm text-gray-400">
-                  Cancele quando quiser, sem compromisso
                 </p>
               </div>
             </div>
