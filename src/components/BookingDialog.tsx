@@ -12,7 +12,7 @@ import { UserDataForm } from "./booking/UserDataForm";
 import { DateTimeSelect } from "./booking/DateTimeSelect";
 import { sendBookingNotification, downloadCalendarEvent, shareOnWhatsApp, type BookingData } from "../utils/notificationServices";
 import { Progress } from "./ui/progress";
-import { ArrowLeft, ArrowRight, Calendar, User } from "lucide-react";
+import { ArrowLeft, ArrowRight, Calendar, User, Scissors, CheckCircle2 } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
@@ -90,25 +90,106 @@ export const BookingDialog = ({ defaultService, children }: BookingDialogProps) 
     });
   };
 
-  const getStepTitle = () => {
+  const getStepContent = () => {
     switch (step) {
       case 1:
-        return "Escolha a Data e Horário";
+        return (
+          <div className="space-y-6 animate-fade-in">
+            <ServiceSelect form={form} />
+            <Button 
+              className="w-full bg-gradient-to-r from-gold to-gold-light hover:from-gold-light hover:to-gold text-black font-medium transition-all duration-300 group"
+              disabled={!form.getValues("service")}
+              onClick={() => setStep(2)}
+            >
+              Escolher Data e Horário
+              <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </div>
+        );
       case 2:
-        return "Complete seu Agendamento";
+        return (
+          <div className="space-y-6 animate-fade-in">
+            <DateTimeSelect
+              date={date}
+              time={time}
+              setDate={setDate}
+              setTime={setTime}
+            />
+            <div className="flex gap-2">
+              <Button 
+                variant="outline" 
+                onClick={() => setStep(1)}
+                className="flex-1 border-gold/20 hover:border-gold/40 hover:bg-gold/5 group"
+              >
+                <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
+                Voltar
+              </Button>
+              <Button 
+                className="flex-1 bg-gradient-to-r from-gold to-gold-light hover:from-gold-light hover:to-gold text-black font-medium transition-all duration-300 group"
+                disabled={!date || !time}
+                onClick={() => setStep(3)}
+              >
+                Seus Dados
+                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </div>
+          </div>
+        );
+      case 3:
+        return (
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 animate-fade-in">
+              <UserDataForm form={form} />
+              
+              <div className="flex gap-2">
+                <Button 
+                  type="button" 
+                  variant="outline" 
+                  onClick={() => setStep(2)}
+                  className="flex-1 border-gold/20 hover:border-gold/40 hover:bg-gold/5 group"
+                >
+                  <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
+                  Voltar
+                </Button>
+                <Button 
+                  type="submit"
+                  className="flex-1 bg-gradient-to-r from-gold to-gold-light hover:from-gold-light hover:to-gold text-black font-medium transition-all duration-300 group"
+                >
+                  <CheckCircle2 className="w-4 h-4 mr-2" />
+                  Confirmar
+                </Button>
+              </div>
+            </form>
+          </Form>
+        );
       default:
-        return "";
+        return null;
     }
   };
 
   const getStepIcon = () => {
     switch (step) {
       case 1:
-        return <Calendar className="w-6 h-6 text-gold" />;
+        return <Scissors className="w-6 h-6 text-gold" />;
       case 2:
+        return <Calendar className="w-6 h-6 text-gold" />;
+      case 3:
         return <User className="w-6 h-6 text-gold" />;
       default:
         return null;
+    }
+  };
+
+  const getStepTitle = () => {
+    switch (step) {
+      case 1:
+        return "Escolha o Serviço";
+      case 2:
+        return "Data e Horário";
+      case 3:
+        return "Seus Dados";
+      default:
+        return "";
     }
   };
 
@@ -131,56 +212,19 @@ export const BookingDialog = ({ defaultService, children }: BookingDialogProps) 
               {getStepTitle()}
             </DialogTitle>
           </div>
-          <Progress value={step === 1 ? 50 : 100} className="h-1 bg-gold/10">
-            <div className="h-full bg-gradient-to-r from-gold to-gold-light" />
-          </Progress>
+          <div className="space-y-2">
+            <Progress value={(step / 3) * 100} className="h-1 bg-gold/10">
+              <div className="h-full bg-gradient-to-r from-gold to-gold-light" />
+            </Progress>
+            <div className="flex justify-between text-xs text-muted-foreground">
+              <span className={step >= 1 ? "text-gold" : ""}>Serviço</span>
+              <span className={step >= 2 ? "text-gold" : ""}>Agenda</span>
+              <span className={step >= 3 ? "text-gold" : ""}>Dados</span>
+            </div>
+          </div>
         </DialogHeader>
 
-        {step === 1 && (
-          <div className="space-y-6">
-            <DateTimeSelect
-              date={date}
-              time={time}
-              setDate={setDate}
-              setTime={setTime}
-            />
-            <Button 
-              className="w-full bg-gradient-to-r from-gold to-gold-light hover:from-gold-light hover:to-gold text-black font-medium transition-all duration-300 group"
-              disabled={!date || !time}
-              onClick={() => setStep(2)}
-            >
-              Continuar
-              <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </div>
-        )}
-
-        {step === 2 && (
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <ServiceSelect form={form} />
-              <UserDataForm form={form} />
-              
-              <div className="flex gap-2">
-                <Button 
-                  type="button" 
-                  variant="outline" 
-                  onClick={() => setStep(1)}
-                  className="flex-1 border-gold/20 hover:border-gold/40 hover:bg-gold/5 group"
-                >
-                  <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
-                  Voltar
-                </Button>
-                <Button 
-                  type="submit"
-                  className="flex-1 bg-gradient-to-r from-gold to-gold-light hover:from-gold-light hover:to-gold text-black font-medium transition-all duration-300"
-                >
-                  Confirmar Agendamento
-                </Button>
-              </div>
-            </form>
-          </Form>
-        )}
+        {getStepContent()}
       </DialogContent>
     </Dialog>
   );

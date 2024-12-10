@@ -1,8 +1,8 @@
 import { Calendar } from "../ui/calendar";
 import { Button } from "../ui/button";
-import { CalendarDays, Clock } from "lucide-react";
+import { CalendarDays, Clock, CheckCircle2 } from "lucide-react";
 import { addDays } from "date-fns";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
+import { cn } from "@/lib/utils";
 
 interface DateTimeSelectProps {
   date: Date | undefined;
@@ -23,7 +23,7 @@ export const DateTimeSelect = ({ date, time, setDate, setTime }: DateTimeSelectP
       <div className="bg-card rounded-lg p-4 border border-gold/10 hover:border-gold/20 transition-colors">
         <div className="flex items-center gap-2 mb-4 text-gold">
           <CalendarDays className="w-5 h-5" />
-          <span className="font-medium">Selecione uma Data</span>
+          <span className="font-medium">Data do Agendamento</span>
         </div>
         <Calendar
           mode="single"
@@ -38,31 +38,30 @@ export const DateTimeSelect = ({ date, time, setDate, setTime }: DateTimeSelectP
         <div className="bg-card rounded-lg p-4 border border-gold/10 hover:border-gold/20 transition-colors animate-fade-in">
           <div className="flex items-center gap-2 mb-4 text-gold">
             <Clock className="w-5 h-5" />
-            <span className="font-medium">Selecione um Horário</span>
+            <span className="font-medium">Horário Disponível</span>
           </div>
           <div className="grid grid-cols-3 gap-2">
-            <TooltipProvider>
-              {timeSlots.map((slot) => (
-                <Tooltip key={slot}>
-                  <TooltipTrigger asChild>
-                    <Button
-                      variant={time === slot ? "default" : "outline"}
-                      className={`${
-                        time === slot 
-                          ? "bg-gradient-to-r from-gold to-gold-light hover:from-gold-light hover:to-gold text-black" 
-                          : "border-gold/20 hover:border-gold/40"
-                      } transition-all duration-300 group`}
-                      onClick={() => setTime(slot)}
-                    >
-                      {slot}
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Horário disponível</p>
-                  </TooltipContent>
-                </Tooltip>
-              ))}
-            </TooltipProvider>
+            {timeSlots.map((slot) => (
+              <Button
+                key={slot}
+                variant="outline"
+                onClick={() => setTime(slot)}
+                className={cn(
+                  "relative border-gold/20 hover:border-gold/40 group",
+                  time === slot && "border-gold bg-gold/10"
+                )}
+              >
+                {time === slot && (
+                  <CheckCircle2 className="absolute -top-2 -right-2 w-4 h-4 text-gold bg-background rounded-full" />
+                )}
+                <span className={cn(
+                  "group-hover:text-gold transition-colors",
+                  time === slot && "text-gold"
+                )}>
+                  {slot}
+                </span>
+              </Button>
+            ))}
           </div>
         </div>
       )}
