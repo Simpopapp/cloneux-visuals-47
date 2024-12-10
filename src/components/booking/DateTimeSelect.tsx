@@ -44,10 +44,17 @@ export const DateTimeSelect = ({ date, time, setDate, setTime }: DateTimeSelectP
                 <Button 
                   variant="ghost" 
                   size="sm"
-                  className="hover:bg-gold/5 hover:text-gold"
+                  className="hover:bg-gold/5 hover:text-gold group relative px-6"
                 >
-                  <span className="mr-2 text-gold">{format(date, "dd/MM/yyyy")}</span>
-                  <ChevronDown className="h-4 w-4" />
+                  <div className="flex flex-col items-center">
+                    <span className="text-2xl font-bold text-gold">
+                      {format(date, "dd/MM")}
+                    </span>
+                    <span className="text-xs text-muted-foreground group-hover:text-gold/80">
+                      Clique para alterar
+                    </span>
+                  </div>
+                  <ChevronDown className="h-4 w-4 absolute right-2 top-1/2 -translate-y-1/2 opacity-50 group-hover:opacity-100" />
                 </Button>
               </CollapsibleTrigger>
             )}
