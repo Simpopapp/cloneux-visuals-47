@@ -1,18 +1,16 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
-import { Button } from "./ui/button";
-import { Form } from "./ui/form";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { format } from "date-fns";
 import { toast } from "sonner";
-import { ServiceSelect } from "./booking/ServiceSelect";
-import { UserDataForm } from "./booking/UserDataForm";
-import { DateTimeSelect } from "./booking/DateTimeSelect";
-import { sendBookingNotification, downloadCalendarEvent, shareOnWhatsApp, type BookingData } from "../utils/notificationServices";
 import { Progress } from "./ui/progress";
-import { ArrowLeft, ArrowRight, Calendar, User, Scissors, CheckCircle2 } from "lucide-react";
+import { Scissors, Calendar, User } from "lucide-react";
+import { BookingStepOne } from "./booking/BookingStepOne";
+import { BookingStepTwo } from "./booking/BookingStepTwo";
+import { BookingStepThree } from "./booking/BookingStepThree";
+import { sendBookingNotification, downloadCalendarEvent, shareOnWhatsApp, type BookingData } from "../utils/notificationServices";
 
 const formSchema = z.object({
   name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
@@ -65,10 +63,7 @@ export const BookingDialog = ({ defaultService, children }: BookingDialogProps) 
       toast.success("Agendamento realizado com sucesso!", {
         description: "Você receberá um email com os detalhes do agendamento."
       });
-      form.reset();
-      setDate(undefined);
-      setTime(undefined);
-      setStep(1);
+      resetDialog();
       setOpen(false);
     } catch (error) {
       console.error('Error processing booking:', error);
@@ -88,87 +83,6 @@ export const BookingDialog = ({ defaultService, children }: BookingDialogProps) 
       email: "",
       service: defaultService || "",
     });
-  };
-
-  const getStepContent = () => {
-    switch (step) {
-      case 1:
-        return (
-          <Form {...form}>
-            <div className="space-y-6 animate-fade-in">
-              <ServiceSelect form={form} />
-              <Button 
-                className="w-full bg-gradient-to-r from-gold to-gold-light hover:from-gold-light hover:to-gold text-black font-medium transition-all duration-300 group"
-                disabled={!form.getValues("service")}
-                onClick={() => setStep(2)}
-              >
-                Escolher Data e Horário
-                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </div>
-          </Form>
-        );
-      case 2:
-        return (
-          <Form {...form}>
-            <div className="space-y-6 animate-fade-in">
-              <DateTimeSelect
-                date={date}
-                time={time}
-                setDate={setDate}
-                setTime={setTime}
-              />
-              <div className="flex gap-2">
-                <Button 
-                  variant="outline" 
-                  onClick={() => setStep(1)}
-                  className="flex-1 border-gold/20 hover:border-gold/40 hover:bg-gold/5 group"
-                >
-                  <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
-                  Voltar
-                </Button>
-                <Button 
-                  className="flex-1 bg-gradient-to-r from-gold to-gold-light hover:from-gold-light hover:to-gold text-black font-medium transition-all duration-300 group"
-                  disabled={!date || !time}
-                  onClick={() => setStep(3)}
-                >
-                  Seus Dados
-                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </div>
-            </div>
-          </Form>
-        );
-      case 3:
-        return (
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 animate-fade-in">
-              <UserDataForm form={form} />
-              
-              <div className="flex gap-2">
-                <Button 
-                  type="button" 
-                  variant="outline" 
-                  onClick={() => setStep(2)}
-                  className="flex-1 border-gold/20 hover:border-gold/40 hover:bg-gold/5 group"
-                >
-                  <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
-                  Voltar
-                </Button>
-                <Button 
-                  type="submit"
-                  className="flex-1 bg-gradient-to-r from-gold to-gold-light hover:from-gold-light hover:to-gold text-black font-medium transition-all duration-300 group"
-                >
-                  <CheckCircle2 className="w-4 h-4 mr-2" />
-                  Confirmar
-                </Button>
-              </div>
-            </form>
-          </Form>
-        );
-      default:
-        return null;
-    }
   };
 
   const getStepIcon = () => {
@@ -194,6 +108,40 @@ export const BookingDialog = ({ defaultService, children }: BookingDialogProps) 
         return "Seus Dados";
       default:
         return "";
+    }
+  };
+
+  const getStepContent = () => {
+    switch (step) {
+      case 1:
+        return (
+          <BookingStepOne
+            form={form}
+            onNext={() => setStep(2)}
+          />
+        );
+      case 2:
+        return (
+          <BookingStepTwo
+            form={form}
+            date={date}
+            time={time}
+            setDate={setDate}
+            setTime={setTime}
+            onPrevious={() => setStep(1)}
+            onNext={() => setStep(3)}
+          />
+        );
+      case 3:
+        return (
+          <BookingStepThree
+            form={form}
+            onPrevious={() => setStep(2)}
+            onSubmit={onSubmit}
+          />
+        );
+      default:
+        return null;
     }
   };
 
@@ -228,7 +176,9 @@ export const BookingDialog = ({ defaultService, children }: BookingDialogProps) 
           </div>
         </DialogHeader>
 
-        {getStepContent()}
+        <div className="max-h-[70vh] overflow-y-auto">
+          {getStepContent()}
+        </div>
       </DialogContent>
     </Dialog>
   );

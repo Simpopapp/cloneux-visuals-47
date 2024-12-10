@@ -31,6 +31,16 @@ export const DateTimeSelect = ({ date, time, setDate, setTime }: DateTimeSelectP
           onSelect={setDate}
           disabled={(date) => date < new Date() || date > addDays(new Date(), 30)}
           className="rounded-md border border-gold/10"
+          modifiers={{
+            selected: date,
+          }}
+          modifiersStyles={{
+            selected: {
+              backgroundColor: "#FFA500",
+              color: "black",
+              fontWeight: "bold",
+            }
+          }}
         />
       </div>
       
