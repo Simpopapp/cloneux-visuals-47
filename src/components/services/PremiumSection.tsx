@@ -15,50 +15,41 @@ export const PremiumSection = ({ plans }: PremiumSectionProps) => {
 
   return (
     <div className="mb-16">
-      <div className="relative group">
-        <button
-          onClick={() => setIsExpanded(!isExpanded)}
-          className="w-full bg-gradient-to-r from-black/60 to-black/40 backdrop-blur-md border-y border-gold/10 py-8 transition-all duration-500 group-hover:border-gold/20"
-        >
-          <div className="max-w-6xl mx-auto px-4 flex items-center justify-between">
-            <div className="flex items-center gap-6">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-gold/20 to-gold/10 flex items-center justify-center">
-                <ChevronDown 
-                  className={`w-6 h-6 text-gold transition-all duration-700 ${
-                    isExpanded ? "rotate-180" : "group-hover:translate-y-0.5"
-                  }`}
-                />
-              </div>
-              <div className="text-left">
-                <h3 className="font-serif text-2xl text-gold/90 group-hover:text-gold transition-colors">
-                  Experiência Premium
-                </h3>
-                <p className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors mt-1">
-                  Descubra benefícios exclusivos
-                </p>
-              </div>
-            </div>
-            <span className="hidden md:block text-sm text-gold/80 group-hover:text-gold transition-colors">
-              {isExpanded ? "Clique para recolher" : "Clique para expandir"}
-            </span>
-          </div>
-        </button>
+      <button
+        onClick={() => setIsExpanded(!isExpanded)}
+        className="group w-full py-6 px-4 transition-all duration-500"
+      >
+        <div className="relative flex items-center justify-center gap-3 group-hover:-translate-y-0.5 transition-all duration-300">
+          <div className="absolute inset-0 bg-gradient-to-r from-gold/5 via-gold/0 to-gold/5 blur-xl opacity-0 group-hover:opacity-100 transition-all duration-700" />
+          
+          <span className="font-serif text-xl text-gold/90 group-hover:text-gold transition-colors relative">
+            Descubra a Experiência Premium
+          </span>
+          
+          <ChevronDown 
+            className={`w-5 h-5 text-gold/80 group-hover:text-gold transition-all duration-500 ${
+              isExpanded 
+                ? "rotate-180" 
+                : "animate-pulse group-hover:animate-none group-hover:translate-y-0.5"
+            }`}
+          />
+          
+          <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-24 h-0.5 bg-gradient-to-r from-transparent via-gold/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500" />
+        </div>
+      </button>
 
-        <div 
-          className={`transform-gpu transition-all duration-700 ease-out overflow-hidden ${
-            isExpanded 
-              ? "max-h-[1000px] opacity-100" 
-              : "max-h-0 opacity-0"
-          }`}
-        >
-          <div className="py-12 bg-gradient-to-b from-black/40 to-transparent">
-            <div className="max-w-6xl mx-auto px-4">
-              <PremiumContent 
-                plans={plans}
-                onPremiumClick={() => setShowPremiumModal(true)}
-              />
-            </div>
-          </div>
+      <div 
+        className={`transform-gpu transition-all duration-700 ease-out ${
+          isExpanded 
+            ? "max-h-[1000px] opacity-100 translate-y-0" 
+            : "max-h-0 opacity-0 -translate-y-4"
+        }`}
+      >
+        <div className="pt-8">
+          <PremiumContent 
+            plans={plans}
+            onPremiumClick={() => setShowPremiumModal(true)}
+          />
         </div>
       </div>
 
