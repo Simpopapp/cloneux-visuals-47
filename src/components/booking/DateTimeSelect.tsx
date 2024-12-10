@@ -1,8 +1,11 @@
 import { Calendar } from "../ui/calendar";
 import { Button } from "../ui/button";
-import { CalendarDays, Clock, CheckCircle2 } from "lucide-react";
+import { CalendarDays, Clock, CheckCircle2, ChevronDown } from "lucide-react";
 import { addDays } from "date-fns";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
+import { format } from "date-fns";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../ui/collapsible";
 
 interface DateTimeSelectProps {
   date: Date | undefined;
@@ -18,30 +21,58 @@ const timeSlots = [
 ];
 
 export const DateTimeSelect = ({ date, time, setDate, setTime }: DateTimeSelectProps) => {
+  const [isCalendarOpen, setIsCalendarOpen] = useState(!date);
+
+  const handleDateSelect = (newDate: Date | undefined) => {
+    setDate(newDate);
+    if (newDate) {
+      setIsCalendarOpen(false);
+    }
+  };
+
   return (
     <div className="space-y-6">
       <div className="bg-card rounded-lg p-4 border border-gold/10 hover:border-gold/20 transition-colors">
-        <div className="flex items-center gap-2 mb-4 text-gold">
-          <CalendarDays className="w-5 h-5" />
-          <span className="font-medium">Data do Agendamento</span>
-        </div>
-        <Calendar
-          mode="single"
-          selected={date}
-          onSelect={setDate}
-          disabled={(date) => date < new Date() || date > addDays(new Date(), 30)}
-          className="rounded-md border border-gold/10"
-          modifiers={{
-            selected: date,
-          }}
-          modifiersStyles={{
-            selected: {
-              backgroundColor: "#FFA500",
-              color: "black",
-              fontWeight: "bold",
-            }
-          }}
-        />
+        <Collapsible open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
+          <div className="flex items-center justify-between gap-2 mb-4">
+            <div className="flex items-center gap-2 text-gold">
+              <CalendarDays className="w-5 h-5" />
+              <span className="font-medium">Data do Agendamento</span>
+            </div>
+            {date && (
+              <CollapsibleTrigger asChild>
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  className="hover:bg-gold/5 hover:text-gold"
+                >
+                  <span className="mr-2 text-gold">{format(date, "dd/MM/yyyy")}</span>
+                  <ChevronDown className="h-4 w-4" />
+                </Button>
+              </CollapsibleTrigger>
+            )}
+          </div>
+          
+          <CollapsibleContent className="space-y-2">
+            <Calendar
+              mode="single"
+              selected={date}
+              onSelect={handleDateSelect}
+              disabled={(date) => date < new Date() || date > addDays(new Date(), 30)}
+              className="rounded-md border border-gold/10"
+              modifiers={{
+                selected: date,
+              }}
+              modifiersStyles={{
+                selected: {
+                  backgroundColor: "#FFA500",
+                  color: "black",
+                  fontWeight: "bold",
+                }
+              }}
+            />
+          </CollapsibleContent>
+        </Collapsible>
       </div>
       
       {date && (
