@@ -17,8 +17,12 @@ export const PremiumSection = ({ plans }: PremiumSectionProps) => {
     <div className="mb-16">
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="group w-full py-6 px-4 transition-all duration-500"
+        className="group w-full py-6 px-4 transition-all duration-500 relative"
       >
+        {/* Permanent decorative elements */}
+        <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[1px] bg-gradient-to-r from-transparent via-gold/10 to-transparent" />
+        <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-[200px] h-[1px] bg-gradient-to-r from-transparent via-gold/20 to-transparent" />
+        
         <div className="relative flex items-center justify-center gap-3 group-hover:-translate-y-0.5 transition-all duration-300">
           <div className="absolute inset-0 bg-gradient-to-r from-gold/5 via-gold/0 to-gold/5 blur-xl opacity-0 group-hover:opacity-100 transition-all duration-700" />
           
