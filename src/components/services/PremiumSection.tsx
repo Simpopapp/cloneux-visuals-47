@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { PremiumContent } from "./premium/PremiumContent";
 import { PremiumModal } from "./premium/PremiumModal";
 import { type PlanType } from "./premium/types";
@@ -36,15 +36,7 @@ export const PremiumSection = ({ plans }: PremiumSectionProps) => {
         />
       </div>
 
-      <Dialog open={showPremiumModal} onOpenChange={setShowPremiumModal}>
-        <DialogContent className="bg-gradient-to-b from-card to-black/95 border-gold/20 max-w-4xl p-0 gap-0">
-          <DialogHeader className="p-6 border-b border-gold/10">
-            <DialogTitle className="text-3xl font-serif text-gold flex items-center gap-2">
-              <PremiumModal />
-            </DialogTitle>
-          </DialogHeader>
-        </DialogContent>
-      </Dialog>
+      <PremiumModal plans={plans} />
     </div>
   );
 };

@@ -1,16 +1,8 @@
 import { Crown, Check, Sparkles, Clock, Shield, Gift } from "lucide-react";
-import { ServiceCard } from "../ServiceCard";
-import { Button } from "../ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useState } from "react";
-
-interface PlanType {
-  title: string;
-  description: string;
-  price: number;
-  duration: string;
-  isPremium?: boolean;
-}
+import { type PlanType } from "./types";
 
 interface PremiumModalProps {
   plans: PlanType[];
