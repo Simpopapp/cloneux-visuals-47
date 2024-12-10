@@ -2,6 +2,7 @@ import { Calendar } from "../ui/calendar";
 import { Button } from "../ui/button";
 import { CalendarDays, Clock } from "lucide-react";
 import { addDays } from "date-fns";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 
 interface DateTimeSelectProps {
   date: Date | undefined;
@@ -19,7 +20,7 @@ const timeSlots = [
 export const DateTimeSelect = ({ date, time, setDate, setTime }: DateTimeSelectProps) => {
   return (
     <div className="space-y-6">
-      <div className="bg-card rounded-lg p-4 border border-gold/10">
+      <div className="bg-card rounded-lg p-4 border border-gold/10 hover:border-gold/20 transition-colors">
         <div className="flex items-center gap-2 mb-4 text-gold">
           <CalendarDays className="w-5 h-5" />
           <span className="font-medium">Selecione uma Data</span>
@@ -34,26 +35,34 @@ export const DateTimeSelect = ({ date, time, setDate, setTime }: DateTimeSelectP
       </div>
       
       {date && (
-        <div className="bg-card rounded-lg p-4 border border-gold/10">
+        <div className="bg-card rounded-lg p-4 border border-gold/10 hover:border-gold/20 transition-colors animate-fade-in">
           <div className="flex items-center gap-2 mb-4 text-gold">
             <Clock className="w-5 h-5" />
             <span className="font-medium">Selecione um Horário</span>
           </div>
           <div className="grid grid-cols-3 gap-2">
-            {timeSlots.map((slot) => (
-              <Button
-                key={slot}
-                variant={time === slot ? "default" : "outline"}
-                className={`${
-                  time === slot 
-                    ? "bg-gold hover:bg-gold-light text-black" 
-                    : "border-gold/20 hover:border-gold/40"
-                } transition-all duration-300`}
-                onClick={() => setTime(slot)}
-              >
-                {slot}
-              </Button>
-            ))}
+            <TooltipProvider>
+              {timeSlots.map((slot) => (
+                <Tooltip key={slot}>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant={time === slot ? "default" : "outline"}
+                      className={`${
+                        time === slot 
+                          ? "bg-gradient-to-r from-gold to-gold-light hover:from-gold-light hover:to-gold text-black" 
+                          : "border-gold/20 hover:border-gold/40"
+                      } transition-all duration-300 group`}
+                      onClick={() => setTime(slot)}
+                    >
+                      {slot}
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Horário disponível</p>
+                  </TooltipContent>
+                </Tooltip>
+              ))}
+            </TooltipProvider>
           </div>
         </div>
       )}

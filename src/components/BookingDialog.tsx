@@ -11,6 +11,8 @@ import { ServiceSelect } from "./booking/ServiceSelect";
 import { UserDataForm } from "./booking/UserDataForm";
 import { DateTimeSelect } from "./booking/DateTimeSelect";
 import { sendBookingNotification, downloadCalendarEvent, shareOnWhatsApp, type BookingData } from "../utils/notificationServices";
+import { Progress } from "./ui/progress";
+import { ArrowLeft, ArrowRight, Calendar, User } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
@@ -60,7 +62,9 @@ export const BookingDialog = ({ defaultService, children }: BookingDialogProps) 
       downloadCalendarEvent(bookingData);
       shareOnWhatsApp(bookingData);
 
-      toast.success("Agendamento realizado com sucesso!");
+      toast.success("Agendamento realizado com sucesso!", {
+        description: "Você receberá um email com os detalhes do agendamento."
+      });
       form.reset();
       setDate(undefined);
       setTime(undefined);
@@ -68,7 +72,9 @@ export const BookingDialog = ({ defaultService, children }: BookingDialogProps) 
       setOpen(false);
     } catch (error) {
       console.error('Error processing booking:', error);
-      toast.error("Erro ao realizar agendamento. Tente novamente.");
+      toast.error("Erro ao realizar agendamento. Tente novamente.", {
+        description: "Por favor, verifique sua conexão e tente novamente."
+      });
     }
   };
 
@@ -84,6 +90,28 @@ export const BookingDialog = ({ defaultService, children }: BookingDialogProps) 
     });
   };
 
+  const getStepTitle = () => {
+    switch (step) {
+      case 1:
+        return "Escolha a Data e Horário";
+      case 2:
+        return "Complete seu Agendamento";
+      default:
+        return "";
+    }
+  };
+
+  const getStepIcon = () => {
+    switch (step) {
+      case 1:
+        return <Calendar className="w-6 h-6 text-gold" />;
+      case 2:
+        return <User className="w-6 h-6 text-gold" />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <Dialog 
       open={open} 
@@ -96,19 +124,35 @@ export const BookingDialog = ({ defaultService, children }: BookingDialogProps) 
         {children}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] bg-background/95 backdrop-blur-sm border-gold/20 shadow-xl shadow-gold/10">
-        <DialogHeader>
-          <DialogTitle className="text-2xl font-serif text-gold">
-            {step === 1 ? "Escolha a Data e Horário" : "Complete seu Agendamento"}
-          </DialogTitle>
+        <DialogHeader className="space-y-4">
+          <div className="flex items-center gap-3">
+            {getStepIcon()}
+            <DialogTitle className="text-2xl font-serif text-gold">
+              {getStepTitle()}
+            </DialogTitle>
+          </div>
+          <Progress value={step === 1 ? 50 : 100} className="h-1 bg-gold/10">
+            <div className="h-full bg-gradient-to-r from-gold to-gold-light" />
+          </Progress>
         </DialogHeader>
 
         {step === 1 && (
-          <DateTimeSelect
-            date={date}
-            time={time}
-            setDate={setDate}
-            setTime={setTime}
-          />
+          <div className="space-y-6">
+            <DateTimeSelect
+              date={date}
+              time={time}
+              setDate={setDate}
+              setTime={setTime}
+            />
+            <Button 
+              className="w-full bg-gradient-to-r from-gold to-gold-light hover:from-gold-light hover:to-gold text-black font-medium transition-all duration-300 group"
+              disabled={!date || !time}
+              onClick={() => setStep(2)}
+            >
+              Continuar
+              <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </div>
         )}
 
         {step === 2 && (
@@ -122,29 +166,20 @@ export const BookingDialog = ({ defaultService, children }: BookingDialogProps) 
                   type="button" 
                   variant="outline" 
                   onClick={() => setStep(1)}
-                  className="flex-1 border-gold/20 hover:border-gold/40 hover:bg-gold/5"
+                  className="flex-1 border-gold/20 hover:border-gold/40 hover:bg-gold/5 group"
                 >
+                  <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
                   Voltar
                 </Button>
                 <Button 
                   type="submit"
-                  className="flex-1 bg-gold hover:bg-gold-light text-black font-medium transition-all duration-300"
+                  className="flex-1 bg-gradient-to-r from-gold to-gold-light hover:from-gold-light hover:to-gold text-black font-medium transition-all duration-300"
                 >
                   Confirmar Agendamento
                 </Button>
               </div>
             </form>
           </Form>
-        )}
-
-        {step === 1 && (
-          <Button 
-            className="w-full bg-gold hover:bg-gold-light text-black font-medium transition-all duration-300"
-            disabled={!date || !time}
-            onClick={() => setStep(2)}
-          >
-            Continuar
-          </Button>
         )}
       </DialogContent>
     </Dialog>
