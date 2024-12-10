@@ -122,14 +122,14 @@ export const PremiumSection = ({ plans }: PremiumSectionProps) => {
               </div>
 
               <div className="space-y-6">
-                <button
-                  onClick={() => setShowPremiumModal(false)}
-                  className="w-[80%] bg-gradient-to-r from-gold to-gold-light hover:from-gold-light hover:to-gold text-black text-lg font-bold py-6 rounded-xl transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl flex items-center justify-center gap-2 relative overflow-hidden group"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000" />
-                  <Crown className="w-5 h-5" />
-                  <span className="relative">Começar Agora</span>
-                </button>
+                  <button
+                    onClick={() => setShowPremiumModal(false)}
+                    className="w-full bg-gradient-to-r from-gold to-gold-light hover:from-gold-light hover:to-gold text-black text-lg font-bold py-4 rounded-xl transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl flex items-center justify-center gap-2 relative overflow-hidden group"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000" />
+                    <Crown className="w-5 h-5" />
+                    <span className="relative">Começar Agora</span>
+                  </button>
 
                 <p className="text-center text-sm text-gray-400">
                   Cancele quando quiser, sem compromisso
