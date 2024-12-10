@@ -35,63 +35,65 @@ const services = [
 
 export const ServiceSelect = ({ form }: ServiceSelectProps) => {
   return (
-    <FormField
-      control={form.control}
-      name="service"
-      render={({ field }) => (
-        <FormItem>
-          <FormControl>
-            <RadioGroup
-              onValueChange={field.onChange}
-              defaultValue={field.value}
-              className="grid grid-cols-1 gap-3 max-h-[400px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-gold/20 scrollbar-track-transparent"
-            >
-              {services.map((service) => (
-                <label
-                  key={service.value}
-                  className={cn(
-                    "flex items-center justify-between space-x-3 rounded-lg border border-gold/20 p-4 cursor-pointer transition-all duration-300",
-                    field.value === service.value 
-                      ? "bg-gold/10 border-gold" 
-                      : "hover:bg-gold/5 hover:border-gold/40"
-                  )}
-                >
-                  <RadioGroupItem 
-                    value={service.value} 
-                    id={service.value}
-                    className="sr-only"
-                  />
-                  <div className="flex-1 space-y-1">
-                    <div className="flex items-center">
-                      <Scissors className={cn(
-                        "w-4 h-4 mr-2",
-                        field.value === service.value ? "text-gold" : "text-muted-foreground"
-                      )} />
-                      <span className={cn(
-                        "font-medium",
-                        field.value === service.value ? "text-gold" : ""
-                      )}>
-                        {service.label}
-                      </span>
+    <div className="form-wrapper">
+      <FormField
+        control={form.control}
+        name="service"
+        render={({ field }) => (
+          <FormItem>
+            <FormControl>
+              <RadioGroup
+                onValueChange={field.onChange}
+                defaultValue={field.value}
+                className="grid grid-cols-1 gap-3 max-h-[400px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-gold/20 scrollbar-track-transparent"
+              >
+                {services.map((service) => (
+                  <label
+                    key={service.value}
+                    className={cn(
+                      "flex items-center justify-between space-x-3 rounded-lg border border-gold/20 p-4 cursor-pointer transition-all duration-300",
+                      field.value === service.value 
+                        ? "bg-gold/10 border-gold" 
+                        : "hover:bg-gold/5 hover:border-gold/40"
+                    )}
+                  >
+                    <RadioGroupItem 
+                      value={service.value} 
+                      id={service.value}
+                      className="sr-only"
+                    />
+                    <div className="flex-1 space-y-1">
+                      <div className="flex items-center">
+                        <Scissors className={cn(
+                          "w-4 h-4 mr-2",
+                          field.value === service.value ? "text-gold" : "text-muted-foreground"
+                        )} />
+                        <span className={cn(
+                          "font-medium",
+                          field.value === service.value ? "text-gold" : ""
+                        )}>
+                          {service.label}
+                        </span>
+                      </div>
+                      <div className="flex items-center text-sm text-muted-foreground">
+                        <Clock className="w-3 h-3 mr-1" />
+                        {service.duration}
+                      </div>
                     </div>
-                    <div className="flex items-center text-sm text-muted-foreground">
-                      <Clock className="w-3 h-3 mr-1" />
-                      {service.duration}
-                    </div>
-                  </div>
-                  <span className={cn(
-                    "font-medium",
-                    field.value === service.value ? "text-gold" : ""
-                  )}>
-                    {service.price}
-                  </span>
-                </label>
-              ))}
-            </RadioGroup>
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
+                    <span className={cn(
+                      "font-medium",
+                      field.value === service.value ? "text-gold" : ""
+                    )}>
+                      {service.price}
+                    </span>
+                  </label>
+                ))}
+              </RadioGroup>
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+    </div>
   );
 };

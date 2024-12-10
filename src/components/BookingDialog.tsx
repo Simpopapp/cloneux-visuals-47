@@ -94,46 +94,50 @@ export const BookingDialog = ({ defaultService, children }: BookingDialogProps) 
     switch (step) {
       case 1:
         return (
-          <div className="space-y-6 animate-fade-in">
-            <ServiceSelect form={form} />
-            <Button 
-              className="w-full bg-gradient-to-r from-gold to-gold-light hover:from-gold-light hover:to-gold text-black font-medium transition-all duration-300 group"
-              disabled={!form.getValues("service")}
-              onClick={() => setStep(2)}
-            >
-              Escolher Data e Horário
-              <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </div>
-        );
-      case 2:
-        return (
-          <div className="space-y-6 animate-fade-in">
-            <DateTimeSelect
-              date={date}
-              time={time}
-              setDate={setDate}
-              setTime={setTime}
-            />
-            <div className="flex gap-2">
+          <Form {...form}>
+            <div className="space-y-6 animate-fade-in">
+              <ServiceSelect form={form} />
               <Button 
-                variant="outline" 
-                onClick={() => setStep(1)}
-                className="flex-1 border-gold/20 hover:border-gold/40 hover:bg-gold/5 group"
+                className="w-full bg-gradient-to-r from-gold to-gold-light hover:from-gold-light hover:to-gold text-black font-medium transition-all duration-300 group"
+                disabled={!form.getValues("service")}
+                onClick={() => setStep(2)}
               >
-                <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
-                Voltar
-              </Button>
-              <Button 
-                className="flex-1 bg-gradient-to-r from-gold to-gold-light hover:from-gold-light hover:to-gold text-black font-medium transition-all duration-300 group"
-                disabled={!date || !time}
-                onClick={() => setStep(3)}
-              >
-                Seus Dados
+                Escolher Data e Horário
                 <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
             </div>
-          </div>
+          </Form>
+        );
+      case 2:
+        return (
+          <Form {...form}>
+            <div className="space-y-6 animate-fade-in">
+              <DateTimeSelect
+                date={date}
+                time={time}
+                setDate={setDate}
+                setTime={setTime}
+              />
+              <div className="flex gap-2">
+                <Button 
+                  variant="outline" 
+                  onClick={() => setStep(1)}
+                  className="flex-1 border-gold/20 hover:border-gold/40 hover:bg-gold/5 group"
+                >
+                  <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
+                  Voltar
+                </Button>
+                <Button 
+                  className="flex-1 bg-gradient-to-r from-gold to-gold-light hover:from-gold-light hover:to-gold text-black font-medium transition-all duration-300 group"
+                  disabled={!date || !time}
+                  onClick={() => setStep(3)}
+                >
+                  Seus Dados
+                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </div>
+            </div>
+          </Form>
         );
       case 3:
         return (
