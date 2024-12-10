@@ -20,7 +20,7 @@ export const PremiumSection = ({ plans }: PremiumSectionProps) => {
     <div className="mb-16">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
         <div className="relative group h-auto lg:h-[450px] rounded-l-xl overflow-hidden bg-card/80 border border-gold/20 hover:border-gold/40 transition-all duration-500 lg:col-span-7">
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/20 to-black/95 z-10" />
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/10 to-black/90 z-10" />
           
           <div className="absolute inset-0">
             <img 
@@ -31,15 +31,16 @@ export const PremiumSection = ({ plans }: PremiumSectionProps) => {
           </div>
           
           <div className="relative z-20 p-12 h-full flex flex-col justify-end">
-            <div className="max-w-md transform transition-all duration-500 translate-y-4 group-hover:translate-y-0">
-              <span className="inline-block bg-gradient-to-r from-gold to-gold-light px-4 py-1.5 rounded-full text-black text-sm font-medium mb-6 shadow-lg">
-                Experiência Premium
-              </span>
-              <h4 className="text-4xl font-serif text-white mb-4 leading-tight">
-                Eleve seu estilo ao próximo nível
+            <div className="max-w-md space-y-4">
+              <div className="inline-flex items-center gap-2 bg-black/30 backdrop-blur-sm px-4 py-2 rounded-full border border-gold/30">
+                <Crown className="w-4 h-4 text-gold" />
+                <span className="text-sm font-medium text-gold">Premium</span>
+              </div>
+              <h4 className="text-4xl font-serif text-white leading-tight">
+                Experiência Exclusiva
               </h4>
-              <p className="text-gray-200 text-lg leading-relaxed opacity-90">
-                Descubra o cuidado personalizado que você merece
+              <p className="text-lg text-gray-200/90 leading-relaxed">
+                Um novo padrão de cuidado personalizado
               </p>
             </div>
           </div>
@@ -48,28 +49,34 @@ export const PremiumSection = ({ plans }: PremiumSectionProps) => {
         <div className="flex flex-col justify-between bg-gradient-to-l from-card via-card to-black/95 p-12 rounded-r-xl border-r border-t border-b border-gold/20 lg:col-span-5">
           <div>
             <h4 className="text-3xl font-serif text-gold mb-8">
-              Benefícios Exclusivos
+              Benefícios Premium
             </h4>
             <ul className="space-y-6">
               <li className="flex items-start gap-4 text-gray-300 group">
-                <Crown className="w-6 h-6 text-gold transition-all duration-300 group-hover:scale-110 mt-1" />
+                <div className="p-2 rounded-lg bg-black/30 border border-gold/20 group-hover:border-gold/40 transition-colors">
+                  <Crown className="w-5 h-5 text-gold" />
+                </div>
                 <div>
                   <h5 className="font-medium text-white mb-1">Atendimento VIP</h5>
-                  <p className="text-sm text-gray-400">Prioridade no agendamento e serviço personalizado</p>
+                  <p className="text-sm text-gray-400">Agendamento prioritário e serviço personalizado</p>
                 </div>
               </li>
               <li className="flex items-start gap-4 text-gray-300 group">
-                <Crown className="w-6 h-6 text-gold transition-all duration-300 group-hover:scale-110 mt-1" />
+                <div className="p-2 rounded-lg bg-black/30 border border-gold/20 group-hover:border-gold/40 transition-colors">
+                  <Crown className="w-5 h-5 text-gold" />
+                </div>
                 <div>
                   <h5 className="font-medium text-white mb-1">Produtos Premium</h5>
-                  <p className="text-sm text-gray-400">Acesso a linha exclusiva de produtos importados</p>
+                  <p className="text-sm text-gray-400">Linha exclusiva de produtos importados</p>
                 </div>
               </li>
               <li className="flex items-start gap-4 text-gray-300 group">
-                <Crown className="w-6 h-6 text-gold transition-all duration-300 group-hover:scale-110 mt-1" />
+                <div className="p-2 rounded-lg bg-black/30 border border-gold/20 group-hover:border-gold/40 transition-colors">
+                  <Crown className="w-5 h-5 text-gold" />
+                </div>
                 <div>
                   <h5 className="font-medium text-white mb-1">Serviços Ilimitados</h5>
-                  <p className="text-sm text-gray-400">Aproveite todos os serviços sem restrições</p>
+                  <p className="text-sm text-gray-400">Todos os serviços sem restrições</p>
                 </div>
               </li>
             </ul>
